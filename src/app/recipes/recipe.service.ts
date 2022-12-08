@@ -8,25 +8,31 @@ import { Recipe } from "./recipe.model";
 export class RecipeService {
     recipesChanged = new Subject<Recipe[]>();
 
-    private recipes: Recipe[] = [
-        new Recipe('Tasty Schnitzel', 
-        'A super-tasty Schnitzel - just awesome!', 
-        'https://insanelygoodrecipes.com/wp-content/uploads/2022/03/Homemade-Pork-Schnitzel-with-Cauliflower-and-Lemons.jpg',
-        [
-            new Ingredient('Meat', 1),
-            new Ingredient('French Fries', 20)
-        ]),
-        new Recipe('Mashroom Soup', 
-        'Delicious Mashroom Soup!', 
-        'https://www.indianhealthyrecipes.com/wp-content/uploads/2021/08/chana-masala-recipe-500x500.jpg',
-        [
-            new Ingredient('Buns', 2),
-            new Ingredient('Meat', 1)
-        ])
-    ];
+    // private recipes: Recipe[] = [
+    //     new Recipe('Tasty Schnitzel', 
+    //     'A super-tasty Schnitzel - just awesome!', 
+    //     'https://insanelygoodrecipes.com/wp-content/uploads/2022/03/Homemade-Pork-Schnitzel-with-Cauliflower-and-Lemons.jpg',
+    //     [
+    //         new Ingredient('Meat', 1),
+    //         new Ingredient('French Fries', 20)
+    //     ]),
+    //     new Recipe('Mashroom Soup', 
+    //     'Delicious Mashroom Soup!', 
+    //     'https://www.indianhealthyrecipes.com/wp-content/uploads/2021/08/chana-masala-recipe-500x500.jpg',
+    //     [
+    //         new Ingredient('Buns', 2),
+    //         new Ingredient('Meat', 1)
+    //     ])
+    // ];
     
+    private recipes: Recipe[] = [];
+
     constructor(private shoppingListService: ShoppingListService) {}
-    
+
+    setRecipes(recipes: Recipe[]){
+        this.recipes = recipes;
+        this.recipesChanged.next(this.recipes.slice());
+    }
     getRecipes() {
         return this.recipes.slice();
     }
